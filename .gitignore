@@ -4,14 +4,10 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+# Arquivos locais de ferramentas
 AGENTS.md
-docs/revisao/
-.codex/config.toml
-*.prompt.md
-prompts/
-notes/
-scratch/
-tmp/
+.codex/
+/docs/revisao
 
 ### STS ###
 .apt_generated
@@ -21,11 +17,6 @@ tmp/
 .settings
 .springBeans
 .sts4-cache
-
-# Java / Maven
-target/
-*.class
-*.log
 
 ### IntelliJ IDEA ###
 .idea

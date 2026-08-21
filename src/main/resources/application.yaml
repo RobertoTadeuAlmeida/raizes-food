@@ -1,3 +1,13 @@
 spring:
   application:
-    name: raizes_food
+    name: raizes-food
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/raizes_food
+    username: raizes_food
+    password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
