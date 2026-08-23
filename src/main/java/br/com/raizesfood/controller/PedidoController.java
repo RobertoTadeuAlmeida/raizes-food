@@ -2,6 +2,7 @@ package br.com.raizesfood.controller;
 
 import br.com.raizesfood.dto.*;
 import br.com.raizesfood.model.entity.Pedido;
+import br.com.raizesfood.model.enums.CanalPedido;
 import br.com.raizesfood.service.PedidoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -63,6 +64,18 @@ public class PedidoController {
         );
 
         return ResponseEntity.ok(toResponse(pedido));
+    }
+    @GetMapping
+    public ResponseEntity<List<PedidoResponse>> buscarPorCanal(
+            @RequestParam CanalPedido canalPedido
+    ) {
+        List<PedidoResponse> pedidos = pedidoService
+                .buscarPorCanal(canalPedido)
+                .stream()
+                .map(this::toResponse)
+                .toList();
+
+        return ResponseEntity.ok(pedidos);
     }
 
     private PedidoResponse toResponse(Pedido pedido) {

@@ -1,13 +1,26 @@
 package br.com.raizesfood.config;
 
+import br.com.raizesfood.security.TokenAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig {
+
+    private final TokenAuthenticationFilter tokenAuthenticationFilter;
+
+    public SecurityConfig(
+            TokenAuthenticationFilter tokenAuthenticationFilter
+    ) {
+        this.tokenAuthenticationFilter = tokenAuthenticationFilter;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http)
@@ -15,10 +28,43 @@ public class SecurityConfig {
 
         http
                 .csrf(AbstractHttpConfigurer::disable)
+
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(
+                                SessionCreationPolicy.STATELESS
+                        )
+                )
+
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll()
+
+                        .requestMatchers(
+                                "/auth/cadastro",
+                                "/auth/login",
+                                "/swagger-ui.html",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**"
+                        ).permitAll()
+
+                        .requestMatchers(
+                                "/pedidos/*/status"
+                        ).hasAnyRole(
+                                "GERENTE",
+                                "ADMINISTRADOR"
+                        )
+
+                        .anyRequest().authenticated()
+                )
+
+                .addFilterBefore(
+                        tokenAuthenticationFilter,
+                        UsernamePasswordAuthenticationFilter.class
                 );
 
         return http.build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

@@ -8,6 +8,7 @@ import br.com.raizesfood.model.entity.Pedido;
 import br.com.raizesfood.model.entity.Produto;
 import br.com.raizesfood.model.entity.Unidade;
 import br.com.raizesfood.model.entity.Usuario;
+import br.com.raizesfood.model.enums.CanalPedido;
 import br.com.raizesfood.model.enums.PerfilUsuario;
 import br.com.raizesfood.model.enums.StatusPedido;
 import br.com.raizesfood.repository.EventoPedidoRepository;
@@ -17,6 +18,8 @@ import br.com.raizesfood.repository.UnidadeRepository;
 import br.com.raizesfood.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class PedidoService {
@@ -304,5 +307,8 @@ public class PedidoService {
                 .orElseThrow(() ->
                         new IllegalArgumentException("Pedido não encontrado")
                 );
+    }
+    public List<Pedido> buscarPorCanal(CanalPedido canal) {
+        return pedidoRepository.findByCanal(canal);
     }
 }
