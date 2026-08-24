@@ -163,8 +163,7 @@ Os perfis existentes são `CLIENTE`, `GERENTE` e `ADMINISTRADOR`. Cadastro, logi
 | `GET` | `/pedidos/{id}` | Autenticado | Consulta um pedido pelo ID. |
 | `GET` | `/pedidos?canalPedido={canal}` | Autenticado | Lista pedidos pelo canal informado. |
 | `PATCH` | `/pedidos/{id}/status` | `GERENTE` ou `ADMINISTRADOR` | Avança o status conforme o fluxo permitido. |
-| `POST` | `/pedidos/{id}/cancelamento` | Autenticado | Cancela um pedido conforme o perfil e o status informados na requisição. |
-
+| `POST` | `/pedidos/{id}/cancelamento` | Autenticado | Cancela um pedido conforme o perfil do usuário autenticado e o status atual do pedido. |
 Os canais aceitos são `APP`, `TOTEM`, `BALCAO`, `PICKUP` e `WEB`. O avanço manual segue `PAGAMENTO_APROVADO` → `EM_PREPARACAO` → `PRONTO` → `FINALIZADO`.
 
 ### Pagamento
@@ -198,3 +197,9 @@ Erros lançados pelas regras implementadas possuem resposta JSON com `status`, `
 ## Escopo acadêmico
 
 Este repositório representa um MVP acadêmico. O foco atual é o fluxo crítico de pedido, pagamento mock e consistência de estoque. Recursos como migrations, carga inicial de dados, persistência ou expiração de tokens e endpoints administrativos para manter unidades, produtos e estoque ainda não fazem parte da implementação atual.
+
+## Repositório
+
+Código-fonte e documentação do projeto:
+
+https://github.com/RobertoTadeuAlmeida/raizes-food

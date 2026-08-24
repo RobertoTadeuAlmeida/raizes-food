@@ -276,15 +276,6 @@
 						},
 						"method": "POST",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"perfil\": \"GERENTE\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "{{baseUrl}}/pedidos/{{pedidoId}}/cancelamento",
 							"host": [
