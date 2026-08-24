@@ -2,6 +2,17 @@
 
 Raízes Food é o backend acadêmico de uma rede fictícia de lanchonetes chamada Raízes do Nordeste. O projeto implementa uma API REST para exercitar o fluxo principal de pedidos, desde a consulta do cardápio e a criação do pedido até o pagamento, a atualização de status e o cancelamento.
 
+## Evidências da entrega
+
+- **Repositório:** https://github.com/SEU-USUARIO/SEU-REPOSITORIO
+- **Swagger UI:** http://localhost:8080/swagger-ui/index.html
+- **OpenAPI:** http://localhost:8080/v3/api-docs
+- **Coleção Postman:** [Raízes Food - MVP](postman/Ra%C3%ADzes%20Food%20-%20MVP.postman_collection.json)
+
+> O Swagger é executado localmente. Para acessá-lo, configure o PostgreSQL,
+> defina a variável `DB_PASSWORD` e inicie a aplicação conforme as instruções
+> deste README.
+
 ## Funcionalidades implementadas
 
 - cadastro de clientes e login;
