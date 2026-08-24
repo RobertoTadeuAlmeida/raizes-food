@@ -2,10 +2,12 @@ package br.com.raizesfood.controller;
 
 import br.com.raizesfood.dto.*;
 import br.com.raizesfood.model.entity.Pedido;
+import br.com.raizesfood.model.entity.Usuario;
 import br.com.raizesfood.model.enums.CanalPedido;
 import br.com.raizesfood.service.PedidoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -56,11 +58,11 @@ public class PedidoController {
     @PostMapping("/{id}/cancelamento")
     public ResponseEntity<PedidoResponse> cancelarPedido(
             @PathVariable Long id,
-            @RequestBody CancelarPedidoRequest request
+            @AuthenticationPrincipal Usuario usuario
     ) {
         Pedido pedido = pedidoService.cancelarPedido(
                 id,
-                request.perfil()
+                usuario.getPerfil()
         );
 
         return ResponseEntity.ok(toResponse(pedido));

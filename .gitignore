@@ -4,11 +4,6 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-# Arquivos locais de ferramentas
-AGENTS.md
-.codex/
-/docs/revisao
-
 ### STS ###
 .apt_generated
 .classpath
@@ -23,7 +18,8 @@ AGENTS.md
 *.iws
 *.iml
 *.ipr
-
+.env
+out/
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/

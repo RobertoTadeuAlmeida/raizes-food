@@ -707,3 +707,101 @@ Registrar eventos relevantes do ciclo do Pedido para permitir sua rastreabilidad
 - RN030 — Registro de eventos do pedido
 
 ---
+
+## RF018 — Gerenciar Fidelização
+
+**Descrição**
+
+Permitir que Clientes participem de um programa de fidelização da rede Raízes Food, acumulando benefícios a partir de pedidos elegíveis e utilizando-os conforme as regras definidas pela rede. **Fora do MVP / Feature futura.**
+
+**Atores**
+
+- Cliente
+- Administrador
+
+**Pré-condições**
+
+- O Cliente deve possuir uma conta cadastrada.
+- Para consultar ou utilizar benefícios, o Cliente deve estar autenticado.
+- O Pedido utilizado para geração de benefícios deve estar associado ao Cliente.
+
+**Fluxo principal**
+
+1. O Cliente realiza um Pedido elegível para o programa de fidelização.
+2. Após a finalização do Pedido, o sistema calcula o benefício correspondente conforme as regras vigentes.
+3. O sistema associa o benefício ao Cliente.
+4. O Cliente consulta o saldo ou os benefícios disponíveis.
+5. Quando permitido pelas regras vigentes, o Cliente utiliza o benefício em um novo Pedido.
+
+**Fluxos alternativos / exceções**
+
+- Pedidos cancelados não geram benefícios de fidelização.
+- Pedidos sem Cliente identificado, como pedidos realizados sem identificação nos contextos `BALCAO` ou `TOTEM`, não geram benefícios associados a uma conta.
+- Caso o Cliente não possua saldo ou benefício suficiente, o sistema impede sua utilização.
+- Benefícios expirados ou indisponíveis não podem ser utilizados.
+- O Administrador pode definir ou alterar as regras do programa de fidelização para utilizações futuras.
+
+**Pós-condições**
+
+- Quando elegível, o benefício gerado fica associado ao Cliente.
+- Quando utilizado, o saldo ou benefício correspondente é atualizado.
+- O histórico de benefícios permanece associado à conta do Cliente para fins de consulta e rastreabilidade.
+
+**Regras relacionadas**
+
+- RN002 — Autorização por perfil
+- RN016 — Unidade do pedido
+- RN026 — Ciclo de status do pedido
+- RN030 — Registro de eventos do pedido
+
+---
+
+## RF019 — Gerenciar Promoções e Campanhas
+
+**Descrição**
+
+Permitir que a rede Raízes Food defina promoções e campanhas aplicáveis aos produtos e pedidos conforme período e critérios previamente estabelecidos. **Fora do MVP / Feature futura.**
+
+**Atores**
+
+- Administrador
+- Cliente
+
+**Pré-condições**
+
+- O Administrador deve estar autenticado para cadastrar ou alterar promoções e campanhas.
+- Os produtos relacionados a uma promoção devem estar cadastrados no cardápio global.
+- Para utilização de uma promoção, ela deve estar ativa e dentro do período de validade.
+
+**Fluxo principal**
+
+1. O Administrador cadastra uma promoção ou campanha.
+2. O Administrador informa as condições de aplicação, os produtos envolvidos e o período de validade.
+3. O sistema valida os dados e registra a promoção.
+4. Durante a criação de um Pedido, o sistema verifica as promoções aplicáveis.
+5. Quando os critérios forem atendidos, o sistema aplica o benefício correspondente ao Pedido.
+6. O Cliente visualiza o benefício aplicado antes da conclusão da compra.
+
+**Fluxos alternativos / exceções**
+
+- Caso a promoção esteja fora do período de validade, o sistema não aplica o benefício.
+- Caso o Pedido não atenda aos critérios definidos, a promoção não é aplicada.
+- Produtos inativos ou indisponíveis na unidade não podem ser incluídos no Pedido apenas por estarem associados a uma promoção.
+- Caso uma promoção seja desativada pelo Administrador, ela deixa de ser considerada em novos Pedidos.
+- Alterações em uma promoção não devem modificar os valores históricos de Pedidos já realizados.
+
+**Pós-condições**
+
+- Promoções válidas ficam disponíveis durante o período e nas condições definidas.
+- Quando aplicável, o Pedido preserva os valores praticados no momento da compra.
+- Pedidos anteriores permanecem com seus valores históricos mesmo após alteração ou encerramento da promoção.
+
+**Regras relacionadas**
+
+- RN002 — Autorização por perfil
+- RN009 — Cardápio único da rede
+- RN014 — Produto inativo
+- RN016 — Unidade do pedido
+- RN018 — Preço praticado no momento da compra
+
+---

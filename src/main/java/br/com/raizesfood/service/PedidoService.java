@@ -66,7 +66,7 @@ public class PedidoService {
         Pedido pedido = new Pedido();
         pedido.setUnidade(unidade);
         pedido.setCliente(cliente);
-        pedido.setCanal(request.canal());
+        pedido.setCanal(request.canalPedido());
 
         for (ItemPedidoRequest itemRequest : request.itens()) {
 
@@ -167,7 +167,7 @@ public class PedidoService {
             throw new IllegalArgumentException("Unidade obrigatória");
         }
 
-        if (request.canal() == null) {
+        if (request.canalPedido() == null) {
             throw new IllegalArgumentException("Canal obrigatório");
         }
 
@@ -308,7 +308,7 @@ public class PedidoService {
                         new IllegalArgumentException("Pedido não encontrado")
                 );
     }
-    public List<Pedido> buscarPorCanal(CanalPedido canal) {
-        return pedidoRepository.findByCanal(canal);
+    public List<Pedido> buscarPorCanal(CanalPedido canalPedido) {
+        return pedidoRepository.findByCanal(canalPedido);
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 public record CriarPedidoRequest(
         Long unidadeId,
         Long clienteId,
-        CanalPedido canal,
+        CanalPedido canalPedido,
         List<ItemPedidoRequest> itens
 ) {
 }
