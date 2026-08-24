@@ -180,3 +180,110 @@ Segurança / Privacidade / LGPD
 - RF004 — Solicitar e Autorizar Perfil de Gerente
 - RN001 — Unicidade de e-mail
 - RN002 — Autorização por perfil
+
+---
+
+## RNF007 — Desempenho
+
+**Descrição:**
+O sistema deve responder às operações do fluxo principal em tempo adequado para o uso esperado da aplicação, inclusive em períodos de maior volume de pedidos.
+
+**Categoria:**
+Desempenho
+
+**Critérios/garantias:**
+- Operações de consulta, criação e atualização de pedidos devem apresentar tempo de resposta adequado ao uso da aplicação.
+- A consulta de cardápio e disponibilidade de produtos não deve exigir o carregamento de dados desnecessários de outras unidades.
+- O processamento de um pedido deve considerar apenas os dados necessários da unidade, dos produtos e do estoque envolvidos na operação.
+- O sistema deve manter o fluxo principal utilizável em períodos de maior volume de pedidos.
+- Consultas e operações relacionadas ao estoque devem utilizar os relacionamentos e mecanismos de persistência definidos para evitar processamento desnecessário.
+
+**Requisitos relacionados:**
+- RF007 — Consultar Cardápio
+- RF011 — Criar Pedido
+- RF012 — Consultar Pedido
+- RF013 — Atualizar Status do Pedido
+- RF015 — Processar Pagamento
+- RN011 — Controle de estoque por unidade
+- RN016 — Unidade do pedido
+
+---
+
+## RNF008 — Disponibilidade
+
+**Descrição:**
+O sistema deve manter as funcionalidades essenciais do fluxo de pedidos disponíveis durante o período de operação da rede, considerando as limitações do ambiente de execução do projeto.
+
+**Categoria:**
+Disponibilidade / Confiabilidade
+
+**Critérios/garantias:**
+- As funcionalidades essenciais de consulta de cardápio, criação de pedido, pagamento e acompanhamento de status devem permanecer disponíveis enquanto a aplicação e suas dependências estiverem operacionais.
+- Falhas em uma operação específica não devem deixar dados de pedidos ou estoque em estado inconsistente.
+- A indisponibilidade de uma dependência deve resultar em falha controlada da operação afetada.
+- Após a recuperação das dependências necessárias, a aplicação deve poder retomar o processamento sem exigir reconstrução manual dos dados persistidos.
+- Dados persistidos no banco de dados devem permanecer disponíveis após reinicializações da aplicação.
+
+**Requisitos relacionados:**
+- RF007 — Consultar Cardápio
+- RF011 — Criar Pedido
+- RF012 — Consultar Pedido
+- RF013 — Atualizar Status do Pedido
+- RF015 — Processar Pagamento
+- RN020 — Baixa de estoque após pagamento aprovado
+- RN026 — Ciclo de status do pedido
+
+---
+
+## RNF009 — Tolerância a Falhas no Pagamento
+
+**Descrição:**
+O sistema deve tratar falhas e resultados negativos durante o processamento de pagamentos sem comprometer a consistência do pedido ou do estoque.
+
+**Categoria:**
+Confiabilidade / Tolerância a Falhas
+
+**Critérios/garantias:**
+- Uma tentativa de pagamento recusada não deve causar baixa no estoque.
+- O pedido deve permanecer em estado compatível com uma nova tentativa quando o pagamento não for aprovado.
+- Cada tentativa de pagamento deve ter seu resultado registrado para fins de rastreabilidade.
+- Uma falha durante o processamento não deve resultar em pagamento parcialmente aplicado ao pedido.
+- Apenas um pagamento aprovado deve produzir os efeitos correspondentes sobre o pedido e o estoque.
+- Uma nova tentativa de pagamento não deve provocar baixa duplicada de estoque.
+
+**Requisitos relacionados:**
+- RF015 — Processar Pagamento
+- RF017 — Registrar Logs/Auditoria
+- RN019 — Verificação de disponibilidade
+- RN020 — Baixa de estoque após pagamento aprovado
+- RN022 — Pagamento aprovado
+- RN025 — Apenas um pagamento aprovado por pedido
+- RN030 — Registro de eventos do pedido
+
+---
+
+## RNF010 — Documentação e Interoperabilidade da API
+
+**Descrição:**
+O sistema deve disponibilizar documentação técnica dos endpoints da API de forma padronizada, permitindo compreender e testar as operações expostas pelo backend.
+
+**Categoria:**
+Manutenibilidade / Interoperabilidade
+
+**Critérios/garantias:**
+- Os endpoints REST devem ser documentados utilizando o padrão OpenAPI.
+- A documentação deve ser disponibilizada por meio de uma interface Swagger UI durante a execução da aplicação.
+- A documentação deve permitir identificar os métodos HTTP e as rotas disponíveis.
+- Os contratos de entrada e saída da API devem ser representados de forma compatível com os DTOs utilizados pela aplicação.
+- A documentação deve auxiliar na identificação dos parâmetros necessários para execução das operações.
+- A API deve utilizar formatos padronizados de comunicação HTTP e JSON nas operações implementadas.
+
+**Requisitos relacionados:**
+- RF001 — Autenticar Usuário
+- RF003 — Cadastrar Cliente
+- RF007 — Consultar Cardápio
+- RF011 — Criar Pedido
+- RF012 — Consultar Pedido
+- RF013 — Atualizar Status do Pedido
+- RF014 — Cancelar Pedido
+- RF015 — Processar Pagamento
